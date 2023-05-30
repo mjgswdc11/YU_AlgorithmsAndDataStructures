@@ -184,6 +184,10 @@ void Array() {
 			cout << "创建第二个矩阵" << endl;
 			CreatTriple(matrix2);
 			MulMatrix(matrix1, matrix2, result);
+			cout << "第一个矩阵为：" << endl;
+			ShowMatrix(matrix1);
+			cout << "第二个矩阵为：" << endl;
+			ShowMatrix(matrix2);
 			cout << "相乘后结果为：" << endl;
 			ShowMatrix(result);
 			break;
@@ -266,31 +270,40 @@ void BiTree() {
             printf("---------Huffman编码-------");
 			cout << endl;
 			int n;
-			cout << "请输入权值个数：";
-			cin >> n;
-
-			// 输入每个字符的权值
-			vector<pair<char, int>> freq(n);
-			cout << "请输入" << n << "个权值：";
-			for (int i = 0; i < n; i++) {
-				cin >> freq[i].second;
+			// 输入数据为一段字符串
+			string input;
+			cout << "请输入一段字符串：" << endl;
+			cin >> input;
+			// 统计每个字符出现的频率
+			unordered_map<char, int> freq;
+			for (char ch : input) {
+				freq[ch]++;
 			}
 
-			// 将输入转换为字符数组
-			char ch = 'A';
-			for (int i = 0; i < n; i++) {
-				freq[i].first = ch++;
+			// 将频率转化为 pair 数组
+			vector<pair<char, int>> freqList;
+			for (auto p : freq) {
+				freqList.push_back(p);
 			}
 
-			// 构建赫夫曼树和赫夫曼编码表
-			HuffmanNode* root = buildHuffmanTree(freq);
-			unordered_map<char, string> table = generateHuffmanTable(root);
+			// 构建赫夫曼树并生成编码表
+			auto root = buildHuffmanTree(freqList);
+			unordered_map<char, string> code;
+			generateHuffmanCode(root, code);
 
-			// 输出赫夫曼编码表
-			cout << "赫夫曼编码表如下：" << endl;
-			for (const auto& p : table) {
-				cout << "权值为" << p.first << "的编码为：" << p.second << endl;
+			// 输出每个字符的频率和对应编码
+			for (auto p : freqList) {
+				cout << "'" << p.first << "' : " << p.second << " -> " << code[p.first] << endl;
 			}
+
+			// 使用生成的编码对原字符串进行压缩
+			string compressed;
+			for (char ch : input) {
+				compressed += code[ch];
+			}
+
+			// 输出压缩结果
+			cout << "compressed string: " << compressed << endl;
 
 		}
 			
@@ -356,7 +369,7 @@ void Graph() {
 
 			break;
 		case 5:
-			printf("---------遍历-------"); 
+			printf("---------遍历-------"); //由于遍历是从第一个结点开始的，所以如果第一个结点没有与任何结点有弧的话，将只会输出第一个结点
 			cout << endl;
 			InitVisited(); // 初始化访问标签数组
 

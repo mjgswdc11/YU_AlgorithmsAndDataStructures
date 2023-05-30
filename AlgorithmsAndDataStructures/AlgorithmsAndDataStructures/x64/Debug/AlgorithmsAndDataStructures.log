@@ -4,4 +4,5 @@ D:\my vs2019 program store\AlgorithmsAndDataStructures\AlgorithmsAndDataStructur
 D:\my vs2019 program store\AlgorithmsAndDataStructures\AlgorithmsAndDataStructures\bitree.h(26,10): message : 缺失的可变参数 2 为格式字符串“%c”所需
 D:\my vs2019 program store\AlgorithmsAndDataStructures\AlgorithmsAndDataStructures\bitree.h(26,10): message : 此参数用作缓冲区大小
 D:\my vs2019 program store\AlgorithmsAndDataStructures\AlgorithmsAndDataStructures\mstree.h(16,11): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\my vs2019 program store\AlgorithmsAndDataStructures\AlgorithmsAndDataStructures\Main.cpp(272,8): warning C4101: “n”: 未引用的局部变量
   AlgorithmsAndDataStructures.vcxproj -> D:\my vs2019 program store\AlgorithmsAndDataStructures\x64\Debug\AlgorithmsAndDataStructures.exe

@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<iostream>
 #include<queue>
-#include"stack.h"
+
 #define MAX_NUM 30
 using namespace std;
 typedef int status;
@@ -31,14 +31,14 @@ void CreateUDG(MGraph& G)
 	G = *(MGraph*)malloc(sizeof(MGraph));
 	cout << "请输入顶点数和弧数" << endl;
 	cin >> G.v >> G.a;
-	cout << "请输入顶点" << endl;
+	cout << "请输入顶点名（char型）" << endl;
 	for (int i = 0; i < G.v; i++)
 	{
 		cin >> G.vexs[i];
 	}
 	for (int i = 0; i < G.v; i++)
 	{
-		for (int j = 0; j < G.a; j++)
+		for (int j = 0; j < G.v; j++)
 		{
 			G.arcs[i][j] = { 0,NULL };
 		}
@@ -102,7 +102,7 @@ void CreateUDN(MGraph& G)
 	// 初始化邻接矩阵
 	for (int i = 0; i < G.v; i++)
 	{
-		for (int j = 0; j < G.a; j++)
+		for (int j = 0; j < G.v; j++)
 		{
 			G.arcs[i][j] = { 0,NULL };
 		}
@@ -138,7 +138,7 @@ void CreateDN(MGraph& G)
 	//初始化邻接矩阵
 	for (int i = 0; i < G.v; i++)
 	{
-		for (int j = 0; j < G.a; j++)
+		for (int j = 0; j < G.v; j++)
 		{
 			G.arcs[i][j] = { 0,NULL };
 		}
@@ -176,32 +176,28 @@ void DFS(MGraph G, int v)
 		if ((G.arcs[v][k].adj != 0) && (!visited[k]))
 			DFS(G, k);
 	}
-	for (int i = 0; i < G.v; i++)
-	{
-		if (visited[i] == 0)
-			DFS(G, v - 1);
-	}
+	//for (int i = 0; i < G.v; i++)
+	//{
+	//	if (visited[i] == 0)
+	//		DFS(G, v - 1);
+	//}
 }
 //广度优先遍历
 void BFS(MGraph G, int v)
 {
 	queue<int>Q;
-	if (visited[v] == 0)
-	{
+	if (visited[v] == 0) {
 		printf("%c", G.vexs[v]);
-		visited[v] = 1;
+		visited[v] = 1; // 将起始结点标记为已访问
 		Q.push(v);
 	}
-	while (!Q.empty())
-	{
+	while (!Q.empty()) {
 		int vex = Q.front();
 		Q.pop();
-		for (int i = 0; i <G.v; i++)
-		{
-			if (G.arcs[vex][i].adj != 0 && (visited[i] == 0))
-			{
+		for (int i = 0; i < G.v; i++) {
+			if (G.arcs[vex][i].adj != 0 && (visited[i] == 0)) {
 				printf("%c", G.vexs[i]);
-				visited[i] = 1;
+				visited[i] = 1; // 将新进入队列的结点标记为已访问
 				Q.push(i);
 			}
 		}

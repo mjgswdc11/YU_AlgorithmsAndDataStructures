@@ -140,66 +140,47 @@ char FindBrotherNode(BinTree T, char x)
 
 // 赫夫曼树节点
 struct HuffmanNode {
-	char ch; // 字符
-	int freq; // 权值
-	HuffmanNode* left, * right; // 左右子树指针
+	char ch;
+	int weight;
+	HuffmanNode* left, * right;
 
-	HuffmanNode(char ch, int freq) {
-		this->ch = ch;
-		this->freq = freq;
-		this->left = this->right = nullptr;
-	}
-
-	// 比较函数，用于优先队列中的排序
+	HuffmanNode(char _ch, int _weight) : ch(_ch), weight(_weight), left(nullptr), right(nullptr) {}
 	bool operator<(const HuffmanNode& other) const {
-		return freq > other.freq; // 按照权值从小到大排序
+		return weight > other.weight; // 按照权重从小到大排序
 	}
 };
 
-// 构建赫夫曼树
 HuffmanNode* buildHuffmanTree(const vector<pair<char, int>>& freq) {
-	// 将输入转换为赫夫曼树的叶子节点
-	vector<HuffmanNode*> leaves;
-	for (const auto& p : freq) {
-		leaves.push_back(new HuffmanNode(p.first, p.second));
+	priority_queue<HuffmanNode*> pq;
+
+	for (auto& p : freq) {
+		pq.push(new HuffmanNode(p.first, p.second));
 	}
 
-	// 构建赫夫曼树
-	priority_queue<HuffmanNode*> pq(leaves.begin(), leaves.end());
 	while (pq.size() > 1) {
-		// 取出权值最小的两个节点
-		HuffmanNode* left = pq.top();
-		pq.pop();
-		HuffmanNode* right = pq.top();
-		pq.pop();
+		auto left = pq.top(); pq.pop();
+		auto right = pq.top(); pq.pop();
 
-		// 构建新节点，作为左右子树的父节点
-		HuffmanNode* parent = new HuffmanNode('\0', left->freq + right->freq);
+		auto parent = new HuffmanNode('\0', left->weight + right->weight);
 		parent->left = left;
 		parent->right = right;
-
-		// 将新节点加入优先队列中
 		pq.push(parent);
 	}
-
-	// 返回赫夫曼树的根节点
 	return pq.top();
 }
 
-// 生成赫夫曼编码表
-unordered_map<char, string> generateHuffmanTable(HuffmanNode* root) {
-	unordered_map<char, string> table;
-	string code;
-	function<void(HuffmanNode*, string)> traverse = [&](HuffmanNode* node, string code) {
-		if (!node) {
+void generateHuffmanCode(HuffmanNode* root, unordered_map<char, string>& code) {
+	if (!root) return;
+
+	function<void(HuffmanNode*, string)> dfs = [&](HuffmanNode* node, string s) {
+		if (node->left == nullptr && node->right == nullptr) {
+			code[node->ch] = s;
 			return;
 		}
-		if (node->ch != '\0') {
-			table[node->ch] = code;
-		}
-		traverse(node->left, code + "0");
-		traverse(node->right, code + "1");
+
+		if (node->left != nullptr) dfs(node->left, s + '0');
+		if (node->right != nullptr) dfs(node->right, s + '1');
 	};
-	traverse(root, code);
-	return table;
+
+	dfs(root, "");
 }
