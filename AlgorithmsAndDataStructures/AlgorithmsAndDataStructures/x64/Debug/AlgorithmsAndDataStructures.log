@@ -1,0 +1,7 @@
+﻿  Main.cpp
+D:\my vs2019 program store\AlgorithmsAndDataStructures\AlgorithmsAndDataStructures\bitree.h(26,10): warning C4473: “scanf_s”: 没有为格式字符串传递足够的参数
+D:\my vs2019 program store\AlgorithmsAndDataStructures\AlgorithmsAndDataStructures\bitree.h(26,10): message : 占位符和其参数预计 2 可变参数，但提供的却是 1 参数
+D:\my vs2019 program store\AlgorithmsAndDataStructures\AlgorithmsAndDataStructures\bitree.h(26,10): message : 缺失的可变参数 2 为格式字符串“%c”所需
+D:\my vs2019 program store\AlgorithmsAndDataStructures\AlgorithmsAndDataStructures\bitree.h(26,10): message : 此参数用作缓冲区大小
+D:\my vs2019 program store\AlgorithmsAndDataStructures\AlgorithmsAndDataStructures\mstree.h(16,11): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  AlgorithmsAndDataStructures.vcxproj -> D:\my vs2019 program store\AlgorithmsAndDataStructures\x64\Debug\AlgorithmsAndDataStructures.exe
