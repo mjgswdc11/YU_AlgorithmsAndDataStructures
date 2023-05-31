@@ -404,7 +404,7 @@ void Graph() {
 			// 读入边信息并建立邻接表
 			for (int k = 0; k < g.e; k++) {
 				int i, j, w;
-				cout << "请输入边的起点和终点编号以及边权重：";
+				cout << "请输入边的起点和终点编号以及边权重(编号从0开始）：";
 				cin >> i >> j >> w;
 
 				// 创建一条新边
@@ -436,7 +436,7 @@ void Graph() {
 			<< n - 1 << "之间的整数，w为非负整数）。" << endl;
 		for (int i = 0; i < m; i++) {
 			int u, v, w;
-			cin >> u >> v >> w;
+			cin >> u >> v >> w;//注意输入的无向图要保证是一个连通图
 			graph[u][v] = graph[v][u] = w;   // 无向图存储方式
 		}
 
@@ -455,7 +455,10 @@ void Graph() {
              printf("---------最短路径-------");
 			 CreateDN(G);
 			 char path[MAX_NUM];
-			 int length = shortestPath(G, 'A', 'F', path);
+			 char startnode, endnode;
+			 cout << "请输入想查询的最短路径的起点名称和终点名称：" << endl;
+			 cin >> startnode >> endnode;
+			 int length = shortestPath(G, startnode,endnode, path);
 			 std::cout << "最短路径长度为：" << length << std::endl;
 		}
 		break;
@@ -463,8 +466,10 @@ void Graph() {
 		{
 			printf("---------关键路径-------");
 			cout << endl;
-			g.n = 6;
-			g.e = 8;
+			cout << "请输入结点个数以及边的个数：" << endl;
+			cin >> g.n >> g.e;
+			//g.n = 6;
+			//g.e = 8;
 			g.v = new VertexNode[g.n];
 
 			// 初始化节点数据
@@ -475,14 +480,22 @@ void Graph() {
 			}
 
 			// 添加边
-			addEdge(g, 0, 1, 3);
+			cout << "请输入弧的两个端点以及权值（端点编号从0开始）：" << endl;
+			for (int i = 0; i < g.e; i++)
+			{
+				int u, v, w;
+				cin >> u >> v >> w;
+				addEdge(g, u, v, w);
+			}
+			//测试样例
+			/*addEdge(g, 0, 1, 3);
 			addEdge(g, 0, 2, 2);
 			addEdge(g, 1, 3, 4);
 			addEdge(g, 2, 3, 3);
 			addEdge(g, 2, 4, 2);
 			addEdge(g, 3, 5, 2);
 			addEdge(g, 4, 5, 3);
-			addEdge(g, 0, 5, 5);
+			addEdge(g, 0, 5, 5);*/
 
 			int path[MAXN * MAXN] = { 0 };
 			int length = criticalTopoSort(g, path);
