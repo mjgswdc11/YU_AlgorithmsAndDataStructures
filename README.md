@@ -1,3 +1,3 @@
-# YZU_AlgorithmsAndDataStructures
-yzu算法与数据结构课程设计
+# YU_AlgorithmsAndDataStructures
+YU算法与数据结构课程设计
 长江大学21级数据结构课程设计
